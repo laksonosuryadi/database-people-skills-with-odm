@@ -1,10 +1,10 @@
 const peopleSkill = require('../models/userskill')
 
-let getUserSkill = (req, res) => {
+let getUserSkill = function(req, res) {
   peopleSkill.find()
     .populate('user','name')
     .populate('skillList.skill','name')
-    .exec((err, results) => {
+    .exec(function(err, results){
      if (err) {
        res.send(err.message);
      } else {
@@ -13,9 +13,9 @@ let getUserSkill = (req, res) => {
     })
 }
 
-let createUserSkill = (req, res) => {
+let createUserSkill = function(req, res) {
   //check if user already exist
-  peopleSkill.findOne({user:req.body.user},(err, userSkill) => {
+  peopleSkill.findOne({user:req.body.user}, function(err, userSkill){
     if(err) {
       res.send(err);
     } else {
@@ -23,7 +23,7 @@ let createUserSkill = (req, res) => {
 
         //check if skill already exist
         let counter = 0;
-        userSkill.skillList.forEach((skillOne) => {
+        userSkill.skillList.forEach(function(skillOne) {
           if(skillOne.skill == req.body.skill) {
             counter = 1;
           }
@@ -40,7 +40,7 @@ let createUserSkill = (req, res) => {
             safe:true,
             upsert:true,
             new:true
-          },(err) => {
+          }, function(err) {
             if(err) {
               res.send(err);
             } else {

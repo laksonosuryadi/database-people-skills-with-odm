@@ -16,7 +16,6 @@ router.get('/users/seed', user.seedDataUser); //this seeder routing only run ONC
 router.get('/skills', skill.getSkill);
 router.get('/skills/seed', skill.seedDataSkill); //this seeder routing only run ONCE !
 
-
 //USERS-SKILLS
 router.get('/userskills', userSkill.getUserSkill);
 
