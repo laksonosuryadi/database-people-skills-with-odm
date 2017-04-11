@@ -14,23 +14,23 @@ let getUserSkill = function(req, res) {
 }
 
 let createUserSkill = function(req, res) {
-  //check if user already exist
+  //check if user already exist or not
   peopleSkill.findOne({user:req.body.user}, function(err, userSkill){
     if(err) {
       res.send(err);
     } else {
       if(userSkill) {
 
-        //check if skill already exist
-        let counter = 0;
-        userSkill.skillList.forEach(function(skillOne) {
-          if(skillOne.skill == req.body.skill) {
-            counter = 1;
+        //check if skill already exist or not
+        let flag = 0;
+        userSkill.skillList.forEach(function(skillFound) {
+          if(skillFound.skill == req.body.skill) {
+            flag = 1;
           }
         })
 
-        if(counter > 0) {
-          res.send('user can not have duplicate skill');
+        if(flag > 0) {
+          res.send('User can not have duplicate skill.');
         } else {
           peopleSkill.update({_id: userSkill._id},{
             $push: {
@@ -56,7 +56,7 @@ let createUserSkill = function(req, res) {
             if(err){
               res.send(err)
             } else {
-              res.send('New data has been created')
+              res.send('New data has been created.')
             }
           })
       }
